@@ -6,12 +6,13 @@ import Pagination from '@/components/Pagination';
 import { prisma } from '@/lib/db/prisma';
 
 interface HomeProps {
-	searchParams: {
+	searchParams: Promise<{
 		page: string;
-	};
+	}>;
 }
 
-const Home = async ({ searchParams: { page = '1' } }: HomeProps) => {
+const Home = async ({ searchParams }: HomeProps) => {
+	const { page = '1' } = await searchParams;
 	const currentPage = parseInt(page);
 
 	const pageSize = 6;
