@@ -4,18 +4,20 @@ import Card from '@/components/Card';
 import { prisma } from '@/lib/db/prisma';
 
 interface SearchPageProps {
-	searchParams: { query: string };
+	searchParams: Promise<{ query: string }>;
 }
 
-const generateMetadata = ({
-	searchParams: { query },
-}: SearchPageProps): Metadata => ({
-	title: `Search: ${query} - Flowmazon`,
-});
+const generateMetadata = async ({
+	searchParams,
+}: SearchPageProps): Promise<Metadata> => {
+	const { query } = await searchParams;
+	return {
+		title: `Search: ${query} - Flowmazon`,
+	};
+};
 
-const SearchPageProps = async ({
-	searchParams: { query },
-}: SearchPageProps) => {
+const SearchPageProps = async ({ searchParams }: SearchPageProps) => {
+	const { query } = await searchParams;
 	const products = await prisma.product.findMany({
 		where: {
 			OR: [

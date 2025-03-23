@@ -9,9 +9,9 @@ import AddButton from './AddButton';
 import { incrementProductQuantity } from './actions';
 
 interface ProductPageProps {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
 const getProduct = cache(async (id: string) => {
@@ -20,7 +20,8 @@ const getProduct = cache(async (id: string) => {
 	return product;
 });
 
-const generateMetadata = async ({ params: { id } }: ProductPageProps) => {
+const generateMetadata = async ({ params }: ProductPageProps) => {
+	const { id } = await params; // Await params before destructuring
 	const product = await getProduct(id);
 
 	return {
@@ -32,7 +33,8 @@ const generateMetadata = async ({ params: { id } }: ProductPageProps) => {
 	};
 };
 
-const ProductPage = async ({ params: { id } }: ProductPageProps) => {
+const ProductPage = async ({ params }: ProductPageProps) => {
+	const { id } = await params; // Await params before destructuring
 	const product = await getProduct(id);
 
 	return (

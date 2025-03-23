@@ -8,7 +8,8 @@ import formatPrice from '@/lib/format';
 
 interface CartEntryProps {
 	cartItem: CartItemWithProduct;
-	setProductQuantity: Promise<void>;
+	// eslint-disable-next-line no-unused-vars
+	setProductQuantity: (productId: string, quantity: number) => Promise<void>;
 }
 
 const CartEntry = ({
