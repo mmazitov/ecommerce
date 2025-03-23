@@ -5,15 +5,12 @@ import { cache } from 'react';
 import PriceTag from '@/components/PriceTag';
 import { prisma } from '@/lib/db/prisma';
 
-import { incrementProductQuantity } from './actions';
 import AddButton from './AddButton';
+import { incrementProductQuantity } from './actions';
 
 interface ProductPageProps {
 	params: {
 		id: string;
-	};
-	searchParams: {
-		[key: string]: string | string[] | undefined;
 	};
 }
 
@@ -48,6 +45,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
 				className="rounded-lg"
 				priority
 			/>
+
 			<div>
 				<h1 className="font-bold text-5xl">{product.name}</h1>
 				<PriceTag price={product.price} className="mt-4" />
